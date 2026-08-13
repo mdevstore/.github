@@ -33,7 +33,7 @@ The bug report template asks for all of this. Filling it in properly is the diff
 
 ## What isn't supported
 
-- Modified resource code — if you've edited the source, reproduce it on a clean copy first
+- Modified resource code - if you've edited the source, reproduce it on a clean copy first
 - Leaked or resold copies
 - Custom development or integration work - ask in Discord and we can discuss it separately
 - Framework-specific bugs that aren't caused by the resource
