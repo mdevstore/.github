@@ -15,7 +15,7 @@ Include the resource name and version, what the issue allows, and reproduction s
 
 You'll get an acknowledgement within a few days. Confirmed issues are patched and pushed to Tebex as a version update, with a note in the changelog describing the fix in general terms.
 
-If you'd like credit in the changelog, say so in your report — otherwise reports are handled anonymously.
+If you'd like credit in the changelog, say so in your report, otherwise reports are handled anonymously.
 
 ## Scope
 
