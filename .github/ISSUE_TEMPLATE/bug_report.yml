@@ -1,0 +1,118 @@
+name: Bug report
+description: Something in an md-dev resource isn't working as it should
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Filling in the fields below properly is the difference between a fix today and three days of back-and-forth.
+
+        **Security issues don't belong here** — see [SECURITY.md](https://github.com/mdevstore/.github/blob/main/SECURITY.md) instead.
+
+  - type: input
+    id: resource
+    attributes:
+      label: Resource
+      description: Which resource is affected?
+      placeholder: md-barriers
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Resource version
+      description: Found in fxmanifest.lua, or on your Tebex download page. "Latest" isn't a version.
+      placeholder: 1.2.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Framework
+      options:
+        - Standalone
+        - QBCore
+        - Qbox
+        - ESX
+        - ox_core
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: artifact
+    attributes:
+      label: FiveM artifact version
+      description: Run `version` in your server console.
+      placeholder: "12345"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: side
+    attributes:
+      label: Where does it happen?
+      options:
+        - Client-side
+        - Server-side
+        - Both
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's happening?
+      description: What goes wrong, and what did you expect instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Be specific enough that someone else could follow along.
+      placeholder: |
+        1. Start the server with only this resource
+        2. Drive up to a barrier
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console output
+      description: |
+        Errors from the client console (F8) **and** the server console. Paste the full error, not a screenshot of part of it.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant config
+      description: If the issue involves a config option, paste the relevant section.
+      render: lua
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I'm on the latest version of this resource
+          required: true
+        - label: I've checked the documentation
+          required: true
+        - label: I've searched existing issues, including closed ones
+          required: true
+        - label: I've tested with other resources stopped to rule out a conflict
+          required: false
+        - label: I haven't modified the resource source code
+          required: false
