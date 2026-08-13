@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest something new for an md-dev resource
+description: Suggest something new for an mdev resource
 labels: ["enhancement", "needs triage"]
 body:
   - type: input
@@ -7,7 +7,7 @@ body:
     attributes:
       label: Resource
       description: Which resource is this for? Use "new resource" if you're suggesting something that doesn't exist yet.
-      placeholder: md-darts
+      placeholder: md-autoclear
     validations:
       required: true
 
