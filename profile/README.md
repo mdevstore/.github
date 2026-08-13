@@ -18,9 +18,9 @@ Every resource ships with framework bridges for QBCore, ESX and ox_core, server-
 
 Source for commercial resources is private. If you've bought a resource and need help:
 
-- **[Discord](https://discord.gg/mdevstore)** — fastest route, and where most support happens
-- **[Documentation](https://docs.mdevstore.com)** — setup guides, config reference and API docs
-- **[Issue tracker](https://github.com/mdevstore/md-support/issues)** — bug reports and feature requests
+- **[Discord](https://discord.gg/mdevstore)** - fastest route, and where most support happens
+- **[Documentation](https://docs.mdevstore.com)** - setup guides, config reference and API docs
+- **[Issue tracker](https://github.com/mdevstore/md-support/issues)** - bug reports and feature requests
 
 ### Licensing
 
