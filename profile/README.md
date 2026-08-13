@@ -1,6 +1,6 @@
 <div align="center">
 
-# md-dev
+# mdevstore
 
 **Specialises in FiveM Scripting**
 
