@@ -9,6 +9,3 @@ contact_links:
   - name: Purchases and refunds
     url: https://www.mdevstore.com
     about: Anything to do with buying, refunds or licence transfers is handled through Tebex.
-  - name: Report a security vulnerability
-    url: https://github.com/mdevstore/.github/blob/main/SECURITY.md
-    about: Please report exploits privately rather than opening a public issue.
