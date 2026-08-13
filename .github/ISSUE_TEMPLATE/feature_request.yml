@@ -1,0 +1,45 @@
+name: Feature request
+description: Suggest something new for an md-dev resource
+labels: ["enhancement", "needs triage"]
+body:
+  - type: input
+    id: resource
+    attributes:
+      label: Resource
+      description: Which resource is this for? Use "new resource" if you're suggesting something that doesn't exist yet.
+      placeholder: md-darts
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the situation you're running into, not just the feature you want. It's often solvable a different way.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like it to do?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Anything you've tried instead?
+      description: Workarounds, other resources, config combinations.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I've checked this isn't already possible through the config
+          required: true
+        - label: I've searched existing issues for the same request
+          required: true
