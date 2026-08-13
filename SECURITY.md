@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-If you've found a security issue in an md-dev resource — an exploit, a permission bypass, an unvalidated server event, or anything that lets a player do something they shouldn't — **please don't open a public issue.**
+If you've found a security issue in an mdev resource - an exploit, a permission bypass, an unvalidated server event, or anything that lets a player do something they shouldn't, **please don't open a public issue.**
 
 Report it privately instead:
 
@@ -21,8 +21,8 @@ If you'd like credit in the changelog, say so in your report, otherwise reports 
 
 This policy covers resources published by md-dev. It does not cover:
 
-- Vulnerabilities in FiveM itself — report those to [Cfx.re](https://forum.cfx.re)
-- Vulnerabilities in third-party frameworks (QBCore, ESX, ox_core) — report those to their maintainers
+- Vulnerabilities in FiveM itself - report those to [Cfx.re](https://forum.cfx.re)
+- Vulnerabilities in third-party frameworks (QBCore, ESX, ox_core) - report those to their maintainers
 - Server misconfiguration or issues caused by modified resource code
 
 ## Please don't
