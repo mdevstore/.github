@@ -1,5 +1,5 @@
 name: Bug report
-description: Something in an md-dev resource isn't working as it should
+description: Something in an mdev resource isn't working as it should
 labels: ["bug", "needs triage"]
 body:
   - type: markdown
@@ -7,7 +7,7 @@ body:
       value: |
         Thanks for taking the time to report this. Filling in the fields below properly is the difference between a fix today and three days of back-and-forth.
 
-        **Security issues don't belong here** — see [SECURITY.md](https://github.com/mdevstore/.github/blob/main/SECURITY.md) instead.
+        **Security issues don't belong here** - see [SECURITY.md](https://github.com/mdevstore/.github/blob/main/SECURITY.md) instead.
 
   - type: input
     id: resource
