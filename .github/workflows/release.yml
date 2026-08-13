@@ -1,0 +1,134 @@
+name: Release resource
+
+# Reusable workflow. Call it from any md-* repo with:
+#
+#   jobs:
+#     release:
+#       uses: mdevstore/.github/.github/workflows/release.yml@main
+#       with:
+#         resource-name: md-barriers
+#         build-ui: true
+#         ui-path: web
+#       permissions:
+#         contents: write
+
+on:
+  workflow_call:
+    inputs:
+      resource-name:
+        description: Folder name the resource ships as (e.g. md-barriers)
+        required: true
+        type: string
+      build-ui:
+        description: Run an npm build for the NUI before packaging
+        required: false
+        default: false
+        type: boolean
+      ui-path:
+        description: Path to the NUI source directory
+        required: false
+        default: web
+        type: string
+      ui-output:
+        description: Build output directory, relative to ui-path
+        required: false
+        default: dist
+        type: string
+      node-version:
+        description: Node version used for the NUI build
+        required: false
+        default: "20"
+        type: string
+      draft:
+        description: Create the release as a draft instead of publishing it
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve version from tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Check fxmanifest version matches tag
+        run: |
+          MANIFEST_VERSION=$(grep -oP "version\s+'\K[^']+" fxmanifest.lua || true)
+          if [ -z "$MANIFEST_VERSION" ]; then
+            echo "::warning::No version found in fxmanifest.lua — skipping check"
+            exit 0
+          fi
+          if [ "$MANIFEST_VERSION" != "${{ steps.version.outputs.version }}" ]; then
+            echo "::error::fxmanifest.lua says $MANIFEST_VERSION but the tag says ${{ steps.version.outputs.version }}"
+            exit 1
+          fi
+          echo "Version matches: $MANIFEST_VERSION"
+
+      - name: Setup Node
+        if: inputs.build-ui
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: npm
+          cache-dependency-path: ${{ inputs.ui-path }}/package-lock.json
+
+      - name: Build NUI
+        if: inputs.build-ui
+        working-directory: ${{ inputs.ui-path }}
+        run: |
+          npm ci
+          npm run build
+
+      - name: Stage resource
+        run: |
+          STAGE="staging/${{ inputs.resource-name }}"
+          mkdir -p "$STAGE"
+
+          # Everything the server needs, nothing it doesn't
+          rsync -av \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'staging' \
+            --exclude 'node_modules' \
+            --exclude '.vscode' \
+            --exclude '.idea' \
+            --exclude '*.md' \
+            --exclude '.gitignore' \
+            --exclude '.gitattributes' \
+            --exclude '${{ inputs.ui-path }}' \
+            ./ "$STAGE/"
+
+          # Ship the built NUI, not its source
+          if [ "${{ inputs.build-ui }}" = "true" ]; then
+            mkdir -p "$STAGE/${{ inputs.ui-path }}"
+            cp -r "${{ inputs.ui-path }}/${{ inputs.ui-output }}/." "$STAGE/${{ inputs.ui-path }}/"
+          fi
+
+          # Keep these two even though *.md is excluded
+          [ -f README.md ] && cp README.md "$STAGE/" || true
+          [ -f LICENSE ] && cp LICENSE "$STAGE/" || true
+          [ -f LICENSE.md ] && cp LICENSE.md "$STAGE/" || true
+
+          echo "--- Packaged contents ---"
+          find "$STAGE" -type f | sort
+
+      - name: Create archive
+        run: |
+          cd staging
+          zip -r "../${{ inputs.resource-name }}-${{ steps.version.outputs.version }}.zip" "${{ inputs.resource-name }}"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ inputs.resource-name }}-${{ steps.version.outputs.version }}.zip
+          generate_release_notes: true
+          draft: ${{ inputs.draft }}
+          name: ${{ inputs.resource-name }} v${{ steps.version.outputs.version }}
